@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Priora — Privacy Policy</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 24px 96px;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background: #fff;
+    }
+    h1 { font-size: 28px; margin-bottom: 4px; }
+    .meta { color: #666; font-size: 14px; margin-bottom: 40px; }
+    h2 { font-size: 19px; margin-top: 40px; border-top: 1px solid #e5e5e5; padding-top: 24px; }
+    p, li { font-size: 15.5px; }
+    strong { font-weight: 600; }
+    code { background: #f4f4f4; padding: 2px 6px; border-radius: 4px; font-size: 14px; }
+    a { color: #5e6ad2; }
+  </style>
+</head>
+<body>
+
+<h1>Priora Privacy Policy</h1>
+<p class="meta">Effective date: August 16, 2026 &nbsp;·&nbsp; Contact: <a href="mailto:priorashopify.app@gmail.com">priorashopify.app@gmail.com</a></p>
+
+<p>This policy describes what data Priora ("the App," "we," "us") accesses when a merchant connects their Shopify store, and what happens to that data.</p>
+
+<h2>1. What Priora is</h2>
+<p>Priora is a Chrome browser extension that scans a merchant's Shopify product catalog and generates a prioritized list of data-quality and SEO issues (such as missing alt text, missing meta descriptions, or placeholder product titles), so the merchant can decide what to fix first.</p>
+
+<h2>2. What data we access, and why</h2>
+<p>When a merchant connects their store, Priora requests the following Shopify Admin API scopes:</p>
+<ul>
+  <li><code>read_products</code></li>
+  <li><code>read_product_listings</code></li>
+</ul>
+<p>These scopes allow Priora to read product data — titles, descriptions, images, variants, and SEO fields — for the purpose of scanning it and generating a report. <strong>Priora does not request access to customer data, orders, payment information, or any personally identifiable information about a merchant's customers.</strong></p>
+
+<h2>3. Where your data actually goes — the important part</h2>
+<p>This is the core of how Priora is built, and it's worth stating plainly:</p>
+<p><strong>Product data is scanned entirely inside your own browser.</strong> When you run a scan, the extension fetches your product catalog directly from Shopify's API and processes it locally, on your own machine, inside the extension. <strong>Priora does not transmit your product catalog to, or store it on, any server we operate.</strong> We have no database of merchant product data, because none is ever sent to us.</p>
+<p>The only thing our server touches is the initial connection process (see Section 4) — never your ongoing product or store data.</p>
+
+<h2>4. What our backend server does handle</h2>
+<p>To connect your store, Shopify requires an OAuth authorization process that involves a small server component. Specifically, our backend:</p>
+<ul>
+  <li>Receives a one-time authorization code from Shopify after you approve access</li>
+  <li>Exchanges that code for an access token, using credentials that must never be exposed in browser-based code</li>
+  <li>Temporarily holds that access token — in server memory only, not a persistent database — long enough for your browser extension to retrieve it via a short-lived, one-time connection code</li>
+  <li>Deletes the connection code immediately after it's used, and automatically expires unused codes after 10 minutes</li>
+</ul>
+<p>After this initial handoff, your access token lives only in your own browser's local extension storage (<code>chrome.storage.local</code>), which is not accessible to us, to other websites, or to other extensions.</p>
+
+<h2>5. Data retention</h2>
+<ul>
+  <li><strong>Product/catalog data:</strong> never stored by us, at any point, since it never leaves your browser.</li>
+  <li><strong>Access tokens:</strong> held briefly in server memory during the connection process only, then only your browser retains the token going forward.</li>
+  <li><strong>Connection codes:</strong> automatically deleted after first use or after 10 minutes, whichever comes first.</li>
+</ul>
+<p>If our server is restarted, all in-memory data (pending connections, unused codes) is cleared automatically, since nothing is written to a persistent database.</p>
+
+<h2>6. Uninstalling</h2>
+<p>If you uninstall Priora or disconnect your store, your access token stored in the browser is removed. If you'd like us to confirm no residual data exists on our side, contact us at the address above — given the architecture described above, there generally won't be any, since we don't retain product or store data after the connection step completes.</p>
+
+<h2>7. GDPR and data subject requests</h2>
+<p>Because Priora does not access, process, or store customer personal data, and does not retain merchant product data after processing, our webhook endpoints for data requests, customer redaction, and shop redaction are implemented as required by Shopify, and will confirm no relevant data is held wherever that is the case.</p>
+
+<h2>8. Changes to this policy</h2>
+<p>If how Priora handles data changes in the future — for example, if we later add server-side features — we will update this policy and note the change, since the description above is only accurate for the architecture as currently built.</p>
+
+<h2>9. Contact</h2>
+<p>Questions about this policy or your data can be sent to <a href="mailto:priorashopify.app@gmail.com">priorashopify.app@gmail.com</a>.</p>
+
+</body>
+</html>
